@@ -12,24 +12,35 @@ import android.util.Log;
 /**
  * Created by Song on 2015/12/7.
  */
-public class DbAdapter {
+public class DatabaseAdapter {
 
-    private static final String DB_NAME = "list.db";
+    private static final String DB_NAME = "wte.db";
     private static final int DB_VERSION = 1;
 
     private SQLiteDatabase mSQLiteDatabase;
 
-    public static final String TABLE_RESTAURANT = "Restaurant";
-    public static final String RESTAURANT_UID = "_id";
-    public static final String RESTAURANT_NAME = "Name";
-    public static final String RESTAURANT_NUMBER = "Number";
+    public static final String TABLE_RESTAURANT = "restaurant";
+    public static final String RESTAURANT_UID = "id";
+    public static final String RESTAURANT_NAME = "name";
+    public static final String RESTAURANT_NUMBER = "number";
+    public static final String RESTAURANT_CIRCLE_ID = "circle_id";
 
-    private static final String CREATE_TABLE_RESTAURANT = "CREATE TABLE " + TABLE_RESTAURANT + " (" + RESTAURANT_UID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + RESTAURANT_NAME + " VARCHAR(255), " + RESTAURANT_NUMBER +
-            " VARCHAR(255));";
+    private  static final String CREATE_TABLE_CIRCLE = "CREATE TABLE circle (" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "name VARCHAR(255)" +
+            ");";
+
+    private static final String CREATE_TABLE_RESTAURANT = "CREATE TABLE " + TABLE_RESTAURANT + " (" +
+            RESTAURANT_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            RESTAURANT_NAME + " VARCHAR(255), " +
+            RESTAURANT_NUMBER + " VARCHAR(255), " +
+            RESTAURANT_CIRCLE_ID + " INTEGER, " +
+            "FOREIGN KEY (" + RESTAURANT_CIRCLE_ID + ") REFERENCES circle("+ RESTAURANT_UID + ")" +
+            ");";
+
     private static final String DROP_TABLE_RESTAURANT = "DROP TABLE " + TABLE_RESTAURANT + " IF EXISTS;";
 
-    public DbAdapter(Context context) {
+    public DatabaseAdapter(Context context) {
         mSQLiteDatabase = new DbHelper(context, DB_NAME, null, DB_VERSION).getWritableDatabase();
     }
 
@@ -38,6 +49,7 @@ public class DbAdapter {
         ContentValues contentValues = new ContentValues();
         contentValues.put(RESTAURANT_NAME, name);
         contentValues.put(RESTAURANT_NUMBER, number);
+        contentValues.put(RESTAURANT_CIRCLE_ID, 1);
         return mSQLiteDatabase.insert(TABLE_RESTAURANT, null, contentValues);
     }
 
@@ -63,9 +75,16 @@ public class DbAdapter {
         }
 
         @Override
+        public void onConfigure(SQLiteDatabase db) {
+            super.onConfigure(db);
+            db.setForeignKeyConstraintsEnabled(true);
+        }
+
+        @Override
         public void onCreate(SQLiteDatabase db) {
             try {
                 Log.e(getClass().getName(), "Creating database...");
+                db.execSQL(CREATE_TABLE_CIRCLE);
                 db.execSQL(CREATE_TABLE_RESTAURANT);
             } catch (SQLException e) {
                 Log.e(getClass().getName(), e.getMessage());
