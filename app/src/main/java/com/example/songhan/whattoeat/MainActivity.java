@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         // database
         DatabaseAdapter db = new DatabaseAdapter(this);
-        db.addRestaurant("abc", "123");
+        db.addRestaurant("abc", "123", 1);
     }
 
     @Override
