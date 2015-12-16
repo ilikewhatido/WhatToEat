@@ -3,6 +3,8 @@ package com.example.songhan.whattoeat;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,13 +20,19 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String RESTAURANT_FRAGMENT_TAG = "restaurant";
+    private static final String CIRCLE_FRAGMENT_TAG = "circle";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Tool bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Floating button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // database
-        DatabaseAdapter db = new DatabaseAdapter(this);
+        // DatabaseAdapter db = new DatabaseAdapter(this);
     }
 
     @Override
@@ -82,13 +90,21 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+        Fragment frag = null;
+        String tag = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_camara) {
-            // Handle the camera action
+            frag = fragmentManager.findFragmentByTag(RESTAURANT_FRAGMENT_TAG);
+            if(frag == null) {
+                frag = RestaurantFragment.newInstance(this);
+                tag = RESTAURANT_FRAGMENT_TAG;
+            }
         } else if (id == R.id.nav_gallery) {
-
+            //frag = fragmentManager.findFragmentByTag(CIRCLE_FRAGMENT_TAG);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -99,6 +115,9 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, frag, tag)
+                .commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
