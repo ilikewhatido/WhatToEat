@@ -19,33 +19,41 @@ public class DatabaseAdapter {
 
     private SQLiteDatabase mSQLiteDatabase;
 
+    // TABLE: CIRCLE
     public static final String TABLE_CIRCLE = "circle";
-    public static final String CIRCLE_UID = "id";
+    public static final String CIRCLE_ID = "id";
     public static final String CIRCLE_NAME = "name";
-
     public  static final String CREATE_TABLE_CIRCLE = "CREATE TABLE " + TABLE_CIRCLE + " (" +
-            CIRCLE_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CIRCLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CIRCLE_NAME + " VARCHAR(255)" +
             ");";
-
     public static final String DEFAULT_CIRCLE = "\"default_circle\"";
     public static final String CREATE_DEFAULT_CIRCLE = "INSERT INTO " + TABLE_CIRCLE + " (" + CIRCLE_NAME + ")" + " VALUES (" + DEFAULT_CIRCLE + ");";
 
+    // TABLE: RESTAURANT
     public static final String TABLE_RESTAURANT = "restaurant";
     public static final String RESTAURANT_ID = "id";
     public static final String RESTAURANT_NAME = "name";
     public static final String RESTAURANT_NUMBER = "number";
-    public static final String RESTAURANT_CIRCLE_ID = "circle_id";
-
-    private static final String CREATE_TABLE_RESTAURANT = "CREATE TABLE " + TABLE_RESTAURANT + " (" +
+    public static final String CREATE_TABLE_RESTAURANT = "CREATE TABLE " + TABLE_RESTAURANT + " (" +
             RESTAURANT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             RESTAURANT_NAME + " VARCHAR(255), " +
-            RESTAURANT_NUMBER + " VARCHAR(255), " +
-            RESTAURANT_CIRCLE_ID + " INTEGER, " +
-            "FOREIGN KEY (" + RESTAURANT_CIRCLE_ID + ") REFERENCES circle("+ CIRCLE_UID + ")" +
+            RESTAURANT_NUMBER + " VARCHAR(255)" +
             ");";
+    public static final String DROP_TABLE_RESTAURANT = "DROP TABLE " + TABLE_RESTAURANT + " IF EXISTS;";
 
-    private static final String DROP_TABLE_RESTAURANT = "DROP TABLE " + TABLE_RESTAURANT + " IF EXISTS;";
+    // TABLE RESTAURANT_CIRCLE
+    public static final String TABLE_RESTAURANT_CIRCLE = "restaurant_circle";
+    public static final String RESTAURANT_CIRCLE_ID = "id";
+    public static final String RESTAURANT_CIRCLE_RESTAURANT_ID = "restaurant_id";
+    public static final String RESTAURANT_CIRCLE_CIRCLE_ID = "circle_id";
+    public static final String CREATE_TABLE_TABLE_RESTAURANT_CIRCLE = "CREATE TABLE " + TABLE_RESTAURANT_CIRCLE + " (" +
+            RESTAURANT_CIRCLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            RESTAURANT_CIRCLE_RESTAURANT_ID  + " INTEGER, " +
+            RESTAURANT_CIRCLE_CIRCLE_ID + " INTEGER, " +
+            "FOREIGN KEY (" + RESTAURANT_CIRCLE_RESTAURANT_ID + ") REFERENCES " + TABLE_RESTAURANT + " ("+ RESTAURANT_ID + "), " +
+            "FOREIGN KEY (" + RESTAURANT_CIRCLE_CIRCLE_ID + ") REFERENCES " + TABLE_CIRCLE + " ("+ CIRCLE_ID + ")" +
+            ");";
 
     public DatabaseAdapter(Context context) {
         mSQLiteDatabase = new DbHelper(context, DB_NAME, null, DB_VERSION).getWritableDatabase();
@@ -101,6 +109,7 @@ public class DatabaseAdapter {
                 db.execSQL(CREATE_TABLE_CIRCLE);
                 db.execSQL(CREATE_DEFAULT_CIRCLE);
                 db.execSQL(CREATE_TABLE_RESTAURANT);
+                db.execSQL(CREATE_TABLE_TABLE_RESTAURANT_CIRCLE);
             } catch (SQLException e) {
                 Log.e(getClass().getName(), e.getMessage());
             }
