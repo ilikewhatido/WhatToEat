@@ -5,12 +5,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Restaurant Fragment"
+        android:text="Circle  Fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <ListView
-        android:id="@+id/restaurant_restaurant_listview"
+        android:id="@+id/restaurant_circle_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

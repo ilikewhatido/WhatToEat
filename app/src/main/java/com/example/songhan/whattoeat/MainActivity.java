@@ -97,14 +97,21 @@ public class MainActivity extends AppCompatActivity
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        // Restaurant
         if (id == R.id.nav_camara) {
             frag = fragmentManager.findFragmentByTag(RESTAURANT_FRAGMENT_TAG);
             if(frag == null) {
                 frag = RestaurantFragment.newInstance(this);
                 tag = RESTAURANT_FRAGMENT_TAG;
             }
+        // Circle
         } else if (id == R.id.nav_gallery) {
-            //frag = fragmentManager.findFragmentByTag(CIRCLE_FRAGMENT_TAG);
+            frag = fragmentManager.findFragmentByTag(CIRCLE_FRAGMENT_TAG);
+            if(frag == null) {
+                frag = CircleFragment.newInstance(this);
+                tag = CIRCLE_FRAGMENT_TAG;
+            }
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

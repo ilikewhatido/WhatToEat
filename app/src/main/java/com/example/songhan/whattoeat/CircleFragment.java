@@ -12,21 +12,21 @@ import android.widget.ListView;
 /**
  * Created by Song on 2015/12/16.
  */
-public class RestaurantFragment extends Fragment {
+public class CircleFragment extends Fragment {
 
     public static Fragment newInstance(Context context) {
-        return new RestaurantFragment();
+        return new CircleFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_restaurant, container, false);
+        return inflater.inflate(R.layout.fragment_circle, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ListView list = (ListView) getActivity().findViewById(R.id.restaurant_restaurant_listview);
+        ListView list = (ListView) getActivity().findViewById(R.id.restaurant_circle_listview);
     }
 }
