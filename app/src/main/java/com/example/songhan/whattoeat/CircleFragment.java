@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -26,6 +28,7 @@ public class CircleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         db = new DatabaseAdapter(getActivity());
         return inflater.inflate(R.layout.fragment_circle, container, false);
     }
@@ -40,5 +43,11 @@ public class CircleFragment extends Fragment {
                 new int[] { R.id.row_circle_name });
         ListView list = (ListView) getActivity().findViewById(R.id.circle_listview);
         list.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_circle, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

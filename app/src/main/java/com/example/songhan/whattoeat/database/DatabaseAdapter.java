@@ -16,7 +16,6 @@ public class DatabaseAdapter {
 
     private static final String DB_NAME = "wte.db";
     private static final int DB_VERSION = 1;
-
     private SQLiteDatabase mSQLiteDatabase;
 
     // TABLE: CIRCLE
