@@ -38,7 +38,7 @@ public class RestaurantFragment extends Fragment {
                 db.getRestaurants(),
                 new String[] { DatabaseAdapter.RESTAURANT_NAME },
                 new int[] { R.id.row_restaurant_name });
-        ListView list = (ListView) getActivity().findViewById(R.id.restaurant_restaurant_listview);
+        ListView list = (ListView) getActivity().findViewById(R.id.restaurant_listview);
         list.setAdapter(adapter);
     }
 }

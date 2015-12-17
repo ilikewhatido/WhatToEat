@@ -89,6 +89,12 @@ public class DatabaseAdapter {
         return mSQLiteDatabase.query(TABLE_RESTAURANT, columns, null, null, null, null, null);
     }
 
+    public Cursor getCircles() {
+        Log.d(getClass().getName(), "executing getCircles...");
+        String[] columns = {CIRCLE_ID, CIRCLE_NAME};
+        return mSQLiteDatabase.query(TABLE_CIRCLE, columns, null, null, null, null, null);
+    }
+
     private class DbHelper extends SQLiteOpenHelper {
 
         public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
