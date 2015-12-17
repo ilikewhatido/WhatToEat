@@ -69,7 +69,7 @@ public class DatabaseAdapter {
     public long addCircle(String name) {
         Log.d(getClass().getName(), "Adding circle(" + name + ")");
         ContentValues cv = new ContentValues();
-        cv.put(CIRCLE_ID, name);
+        cv.put(CIRCLE_NAME, name);
         return mSQLiteDatabase.insert(TABLE_CIRCLE, null, cv);
     }
 

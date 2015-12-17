@@ -8,6 +8,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 public class CircleFragment extends Fragment {
 
     private DatabaseAdapter db;
+    private static final String ADD_CIRCLE_DIALOG_TAG = "add_circle";
 
     public static Fragment newInstance(Context context) {
         return new CircleFragment();
@@ -49,5 +51,17 @@ public class CircleFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_circle, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_circle:
+                AddCircleDialog dialog = new AddCircleDialog();
+                dialog.show(getActivity().getFragmentManager(), ADD_CIRCLE_DIALOG_TAG);
+                return true;
+            default:
+                return true;
+        }
     }
 }
