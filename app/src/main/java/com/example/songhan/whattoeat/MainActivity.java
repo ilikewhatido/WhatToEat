@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String RESTAURANT_FRAGMENT_TAG = "restaurant";
     private static final String CIRCLE_FRAGMENT_TAG = "circle";
+    private static final String ADD_RESTAURANT_DIALOG_TAG = "add_restaurant";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                AddRestaurantDialog dialog = new AddRestaurantDialog();
+                dialog.show(getFragmentManager(), ADD_RESTAURANT_DIALOG_TAG);
             }
         });
 
@@ -104,6 +105,8 @@ public class MainActivity extends AppCompatActivity
             if(frag == null) {
                 frag = RestaurantFragment.newInstance(this);
                 tag = RESTAURANT_FRAGMENT_TAG;
+            } else {
+                return true;
             }
         // Circle
         } else if (id == R.id.nav_gallery) {
@@ -111,6 +114,8 @@ public class MainActivity extends AppCompatActivity
             if(frag == null) {
                 frag = CircleFragment.newInstance(this);
                 tag = CIRCLE_FRAGMENT_TAG;
+            } else {
+                return true;
             }
         } else if (id == R.id.nav_slideshow) {
 
