@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        // database
-        // DatabaseAdapter db = new DatabaseAdapter(this);
     }
 
     @Override
@@ -127,11 +124,11 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, frag, tag)
-                .commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

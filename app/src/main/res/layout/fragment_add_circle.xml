@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/add_restaurant_name"
+        android:id="@+id/add_circle_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -12,36 +12,25 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:hint="@string/fragment_add_restaurant_name" />
-
-    <EditText
-        android:id="@+id/add_restaurant_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/add_restaurant_name"
-        android:hint="@string/fragment_add_restaurant_number" />
+        android:hint="@string/fragment_add_circle_name" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/add_restaurant_number"
+        android:layout_below="@+id/add_circle_name"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/addRestaurantCancel"
+            android:id="@+id/add_circle_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancel" />
 
         <Button
-            android:id="@+id/addRestauranOk"
+            android:id="@+id/add_circle_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

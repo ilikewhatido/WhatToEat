@@ -21,30 +21,30 @@ public class DatabaseAdapter {
 
     // TABLE: CIRCLE
     public static final String TABLE_CIRCLE = "circle";
-    public static final String CIRCLE_ID = "id";
+    public static final String CIRCLE_ID = "_id";
     public static final String CIRCLE_NAME = "name";
     public  static final String CREATE_TABLE_CIRCLE = "CREATE TABLE " + TABLE_CIRCLE + " (" +
             CIRCLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            CIRCLE_NAME + " VARCHAR(255)" +
+            CIRCLE_NAME + " VARCHAR(255) NOT NULL " +
             ");";
     public static final String DEFAULT_CIRCLE = "\"default_circle\"";
     public static final String CREATE_DEFAULT_CIRCLE = "INSERT INTO " + TABLE_CIRCLE + " (" + CIRCLE_NAME + ")" + " VALUES (" + DEFAULT_CIRCLE + ");";
 
     // TABLE: RESTAURANT
     public static final String TABLE_RESTAURANT = "restaurant";
-    public static final String RESTAURANT_ID = "id";
+    public static final String RESTAURANT_ID = "_id";
     public static final String RESTAURANT_NAME = "name";
     public static final String RESTAURANT_NUMBER = "number";
     public static final String CREATE_TABLE_RESTAURANT = "CREATE TABLE " + TABLE_RESTAURANT + " (" +
             RESTAURANT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            RESTAURANT_NAME + " VARCHAR(255), " +
+            RESTAURANT_NAME + " VARCHAR(255) NOT NULL, " +
             RESTAURANT_NUMBER + " VARCHAR(255)" +
             ");";
     public static final String DROP_TABLE_RESTAURANT = "DROP TABLE " + TABLE_RESTAURANT + " IF EXISTS;";
 
     // TABLE RESTAURANT_CIRCLE
     public static final String TABLE_RESTAURANT_CIRCLE = "restaurant_circle";
-    public static final String RESTAURANT_CIRCLE_ID = "id";
+    public static final String RESTAURANT_CIRCLE_ID = "_id";
     public static final String RESTAURANT_CIRCLE_RESTAURANT_ID = "restaurant_id";
     public static final String RESTAURANT_CIRCLE_CIRCLE_ID = "circle_id";
     public static final String CREATE_TABLE_TABLE_RESTAURANT_CIRCLE = "CREATE TABLE " + TABLE_RESTAURANT_CIRCLE + " (" +
@@ -59,19 +59,18 @@ public class DatabaseAdapter {
         mSQLiteDatabase = new DbHelper(context, DB_NAME, null, DB_VERSION).getWritableDatabase();
     }
 
-    public long addRestaurant(String name, String number, int circle) {
-        Log.d(getClass().getName(), "Adding restaurant(" + name + ", " + number + ")");
+    public long addRestaurant(String name, String number) {
+        Log.d(getClass().getName(), "Adding restaurant(name=" + name + ", number= " + number + ")");
         ContentValues cv = new ContentValues();
         cv.put(RESTAURANT_NAME, name);
         cv.put(RESTAURANT_NUMBER, number);
-        cv.put(RESTAURANT_CIRCLE_ID, circle);
         return mSQLiteDatabase.insert(TABLE_RESTAURANT, null, cv);
     }
 
     public long addCircle(String name) {
         Log.d(getClass().getName(), "Adding circle(" + name + ")");
         ContentValues cv = new ContentValues();
-        cv.put(CIRCLE_NAME, name);
+        cv.put(CIRCLE_ID, name);
         return mSQLiteDatabase.insert(TABLE_CIRCLE, null, cv);
     }
 

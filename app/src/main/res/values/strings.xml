@@ -9,8 +9,8 @@
     <string name="fragment_add_restaurant_name">Restaurant Name</string>
     <string name="fragment_add_restaurant_number">Restaurant Number</string>
 
-    <string name="fragment_add_restaurant_cancel">Cancel</string>
-    <string name="fragment_add_restaurant_ok">OK</string>
+    <string name="fragment_add_circle_name">Group Name</string>
 
-
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.songhan.whattoeat.database.DatabaseAdapter;
+
 /**
  * Created by Song on 2015/12/2.
  */
@@ -23,8 +25,8 @@ public class AddRestaurantDialog extends DialogFragment implements View.OnClickL
         cancel = (Button) view.findViewById(R.id.addRestaurantCancel);
         ok.setOnClickListener(this);
         cancel.setOnClickListener(this);
-        name = (EditText) view.findViewById(R.id.addRestaurantName);
-        number = (EditText) view.findViewById(R.id.addRestaurantNumber);
+        name = (EditText) view.findViewById(R.id.add_restaurant_name);
+        number = (EditText) view.findViewById(R.id.add_restaurant_number);
         setCancelable(true);
         return view;
     }
@@ -33,7 +35,8 @@ public class AddRestaurantDialog extends DialogFragment implements View.OnClickL
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.addRestauranOk) {
-            //((MainActivityActionManager)getActivity()).addRestaurant(name.getText().toString(), number.getText().toString());
+            DatabaseAdapter db = new DatabaseAdapter(getActivity());
+            db.addRestaurant(name.getText().toString(), number.getText().toString());
             dismiss();
         } else if (id == R.id.addRestaurantCancel) {
             dismiss();
