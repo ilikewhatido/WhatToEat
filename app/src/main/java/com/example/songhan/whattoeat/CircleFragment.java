@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
@@ -18,7 +19,7 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 /**
  * Created by Song on 2015/12/16.
  */
-public class CircleFragment extends Fragment {
+public class CircleFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private DatabaseAdapter db;
     private static final String ADD_CIRCLE_DIALOG_TAG = "add_circle";
@@ -45,6 +46,7 @@ public class CircleFragment extends Fragment {
                 new int[] { R.id.row_circle_name });
         ListView list = (ListView) getActivity().findViewById(R.id.circle_listview);
         list.setAdapter(adapter);
+        list.setOnItemClickListener(this);
     }
 
     @Override
@@ -63,5 +65,10 @@ public class CircleFragment extends Fragment {
             default:
                 return true;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }

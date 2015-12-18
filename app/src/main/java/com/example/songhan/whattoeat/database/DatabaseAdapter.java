@@ -36,20 +36,19 @@ public class DatabaseAdapter {
     public static final String RESTAURANT_NUMBER = "number";
     public static final String CREATE_TABLE_RESTAURANT = "CREATE TABLE " + TABLE_RESTAURANT + " (" +
             RESTAURANT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            RESTAURANT_NAME + " VARCHAR(255) NOT NULL, " +
+            RESTAURANT_NAME + " VARCHAR(255) NOT NULL UNIQUE, " +
             RESTAURANT_NUMBER + " VARCHAR(255)" +
             ");";
     public static final String DROP_TABLE_RESTAURANT = "DROP TABLE " + TABLE_RESTAURANT + " IF EXISTS;";
 
     // TABLE RESTAURANT_CIRCLE
     public static final String TABLE_RESTAURANT_CIRCLE = "restaurant_circle";
-    public static final String RESTAURANT_CIRCLE_ID = "_id";
     public static final String RESTAURANT_CIRCLE_RESTAURANT_ID = "restaurant_id";
     public static final String RESTAURANT_CIRCLE_CIRCLE_ID = "circle_id";
     public static final String CREATE_TABLE_TABLE_RESTAURANT_CIRCLE = "CREATE TABLE " + TABLE_RESTAURANT_CIRCLE + " (" +
-            RESTAURANT_CIRCLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             RESTAURANT_CIRCLE_RESTAURANT_ID  + " INTEGER, " +
             RESTAURANT_CIRCLE_CIRCLE_ID + " INTEGER, " +
+            "PRIMARY KEY (" + RESTAURANT_CIRCLE_RESTAURANT_ID + ", " + RESTAURANT_CIRCLE_CIRCLE_ID + "), " +
             "FOREIGN KEY (" + RESTAURANT_CIRCLE_RESTAURANT_ID + ") REFERENCES " + TABLE_RESTAURANT + " ("+ RESTAURANT_ID + "), " +
             "FOREIGN KEY (" + RESTAURANT_CIRCLE_CIRCLE_ID + ") REFERENCES " + TABLE_CIRCLE + " ("+ CIRCLE_ID + ")" +
             ");";
