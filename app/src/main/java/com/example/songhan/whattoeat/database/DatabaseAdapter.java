@@ -65,6 +65,13 @@ public class DatabaseAdapter {
         return mSQLiteDatabase.insert(TABLE_RESTAURANT, null, cv);
     }
 
+    public long linkRestaurantToGroup(long restaurantId, long circleId) {
+        ContentValues cv = new ContentValues();
+        cv.put(RESTAURANT_CIRCLE_RESTAURANT_ID, restaurantId);
+        cv.put(RESTAURANT_CIRCLE_CIRCLE_ID, circleId);
+        return mSQLiteDatabase.insert(TABLE_RESTAURANT_CIRCLE, null, cv);
+    }
+
     public long addCircle(String name) {
         Log.d(getClass().getName(), "Adding circle(" + name + ")");
         ContentValues cv = new ContentValues();

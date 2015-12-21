@@ -55,7 +55,7 @@ public class CircleRestaurantFragment extends Fragment implements AdapterView.On
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_circle_restaurant, menu);
+        inflater.inflate(R.menu.menu_restaurant_in_circle, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

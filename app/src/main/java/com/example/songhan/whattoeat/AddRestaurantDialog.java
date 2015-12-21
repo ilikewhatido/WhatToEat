@@ -20,7 +20,7 @@ public class AddRestaurantDialog extends DialogFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_restaurant, null);
+        View view = inflater.inflate(R.layout.fragment_add_restaurant_dialog, null);
         ok = (Button) view.findViewById(R.id.add_restaurant_ok);
         cancel = (Button) view.findViewById(R.id.add_restaurant_cancel);
         ok.setOnClickListener(this);
