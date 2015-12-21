@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
@@ -48,7 +53,45 @@ public class AddRestaurantCircleFragment extends Fragment {
                 db.getRestaurantsNotInCircle(circleId),
                 new String[] { DatabaseAdapter.RESTAURANT_NAME },
                 new int[] { R.id.row_restaurant_name });
-        ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_listview);
+        ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_to_group_listview);
         list.setAdapter(adapter);
+
+        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        list.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                Log.e("wawawa", "onCreateActionMode");
+                MenuInflater inflater = getActivity().getMenuInflater();
+                inflater.inflate(R.menu.menu_add_restaurant_to_circle_contextual, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.add_restaurant_to_circle_contexual:
+//TODO
+                        break;
+                    default:
+                }
+                return true;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+            }
+        });
     }
 }
