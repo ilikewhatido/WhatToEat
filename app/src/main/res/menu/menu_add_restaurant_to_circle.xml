@@ -4,14 +4,14 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/add_circle"
+        android:id="@+id/add_restaurant_to_circle"
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="1"
         android:title="Add"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/remove_circle"
+        android:id="@+id/remove_restaurant_from_circle"
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="2"
         android:title="Remove"

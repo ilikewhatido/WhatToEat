@@ -1,13 +1,11 @@
 package com.example.songhan.whattoeat;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,10 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 
-import com.example.songhan.whattoeat.database.CircleRestaurantFragment;
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
 
 /**
@@ -80,6 +76,6 @@ public class CircleFragment extends Fragment implements AdapterView.OnItemClickL
         Fragment frag = CircleRestaurantFragment.newInstance(getActivity());
         frag.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().addToBackStack(TAG).replace(R.id.content_frame, frag, TAG).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, frag, TAG).commit();
     }
 }

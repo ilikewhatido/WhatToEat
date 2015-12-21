@@ -17,9 +17,9 @@ import android.view.MenuItem;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String HOME_FRAGMENT_TAG = "home";
     private static final String RESTAURANT_FRAGMENT_TAG = "restaurant";
     private static final String CIRCLE_FRAGMENT_TAG = "circle";
     private static final String ADD_RESTAURANT_DIALOG_TAG = "add_restaurant";
@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set Home page
-        FragmentManager fragManager = getSupportFragmentManager();
+        Fragment home = HomeFragment.newInstance(this);
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_frame, home).commit();
     }
 
     @Override
@@ -94,42 +96,24 @@ public class MainActivity extends AppCompatActivity
 
         Fragment frag = null;
         String tag = null;
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();
 
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        // Restaurant
-        if (id == R.id.nav_camara) {
-            frag = fragmentManager.findFragmentByTag(RESTAURANT_FRAGMENT_TAG);
-            if(frag == null) {
-                frag = RestaurantFragment.newInstance(this);
-                tag = RESTAURANT_FRAGMENT_TAG;
-            } else {
-                return true;
-            }
-        // Circle
-        } else if (id == R.id.nav_gallery) {
-            frag = fragmentManager.findFragmentByTag(CIRCLE_FRAGMENT_TAG);
-            if(frag == null) {
-                frag = CircleFragment.newInstance(this);
-                tag = CIRCLE_FRAGMENT_TAG;
-            } else {
-                return true;
-            }
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if(id == R.id.nav_home) {
+            frag = HomeFragment.newInstance(this);
+            tag = HOME_FRAGMENT_TAG;
+        } else if(id == R.id.nav_restaurants) {
+            frag =RestaurantFragment.newInstance(this);
+            tag = RESTAURANT_FRAGMENT_TAG;
+        } else if(id == R.id.nav_circles) {
+            frag =CircleFragment.newInstance(this);
+            tag = CIRCLE_FRAGMENT_TAG;
         }
 
-        fragmentManager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
+        manager.beginTransaction().replace(R.id.content_frame, frag).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawers();
+
         return true;
     }
 

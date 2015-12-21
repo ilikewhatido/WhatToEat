@@ -1,9 +1,10 @@
-package com.example.songhan.whattoeat.database;
+package com.example.songhan.whattoeat;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.songhan.whattoeat.AddCircleDialog;
-import com.example.songhan.whattoeat.R;
+import com.example.songhan.whattoeat.database.DatabaseAdapter;
 
 /**
  * Created by Song on 2015/12/16.
@@ -55,23 +55,23 @@ public class CircleRestaurantFragment extends Fragment implements AdapterView.On
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.menu_circle, menu);
+        inflater.inflate(R.menu.menu_circle_restaurant, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*
         switch (item.getItemId()) {
-            case R.id.add_circle:
-                AddCircleDialog dialog = new AddCircleDialog();
-                dialog.show(getActivity().getFragmentManager(), ADD_CIRCLE_DIALOG_TAG);
+            case R.id.add_circle_restaurant:
+
+                Fragment frag = AddRestaurantCircleFragment.newInstance(getActivity());
+                frag.setArguments(getArguments());
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.content_frame, frag).commit();
                 return true;
             default:
                 return true;
         }
-        */
-        return true;
     }
 
     @Override
