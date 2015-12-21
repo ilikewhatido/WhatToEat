@@ -87,6 +87,15 @@ public class DatabaseAdapter {
         return mSQLiteDatabase.query(TABLE_RESTAURANT, columns, null, null, null, null, null);
     }
 
+    public Cursor getRestaurantsByCircle(long id) {
+        String sql = "SELECT * FROM " + TABLE_RESTAURANT +
+                " WHERE " + RESTAURANT_ID +
+                " IN" +
+                " ( SELECT " + RESTAURANT_CIRCLE_RESTAURANT_ID + " FROM " + TABLE_RESTAURANT_CIRCLE +
+                " WHERE " + RESTAURANT_CIRCLE_CIRCLE_ID + " = " + id + ");";
+        return mSQLiteDatabase.rawQuery(sql, null);
+    }
+
     public Cursor getCircles() {
         Log.d(getClass().getName(), "executing getCircles...");
         String[] columns = {CIRCLE_ID, CIRCLE_NAME};

@@ -1,11 +1,9 @@
-package com.example.songhan.whattoeat;
+package com.example.songhan.whattoeat.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,23 +13,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 
-import com.example.songhan.whattoeat.database.CircleRestaurantFragment;
-import com.example.songhan.whattoeat.database.DatabaseAdapter;
+import com.example.songhan.whattoeat.AddCircleDialog;
+import com.example.songhan.whattoeat.R;
 
 /**
  * Created by Song on 2015/12/16.
  */
-public class CircleFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class CircleRestaurantFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private static final String TAG = "circle_frag";
     private DatabaseAdapter db;
     private static final String ADD_CIRCLE_DIALOG_TAG = "add_circle";
 
     public static Fragment newInstance(Context context) {
-        return new CircleFragment();
+        return new CircleRestaurantFragment();
     }
 
     @Nullable
@@ -39,30 +35,33 @@ public class CircleFragment extends Fragment implements AdapterView.OnItemClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         db = new DatabaseAdapter(getActivity());
-        return inflater.inflate(R.layout.fragment_circle, container, false);
+        return inflater.inflate(R.layout.fragment_circle_restaurant, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        long circleId = getArguments().getLong("circle_id", 1);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(),
-                R.layout.row_circle,
-                db.getCircles(),
-                new String[] { DatabaseAdapter.CIRCLE_NAME },
-                new int[] { R.id.row_circle_name });
-        ListView list = (ListView) getActivity().findViewById(R.id.circle_listview);
+                R.layout.row_restaurant,
+                db.getRestaurantsByCircle(circleId),
+                new String[] { DatabaseAdapter.RESTAURANT_NAME },
+                new int[] { R.id.row_restaurant_name });
+        ListView list = (ListView) getActivity().findViewById(R.id.circle_restaurant_listview);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_circle, menu);
+        //inflater.inflate(R.menu.menu_circle, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        /*
         switch (item.getItemId()) {
             case R.id.add_circle:
                 AddCircleDialog dialog = new AddCircleDialog();
@@ -71,15 +70,13 @@ public class CircleFragment extends Fragment implements AdapterView.OnItemClickL
             default:
                 return true;
         }
+        */
+        return true;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Bundle bundle = new Bundle();
-        bundle.putLong("circle_id", id);
-        Fragment frag = CircleRestaurantFragment.newInstance(getActivity());
-        frag.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().addToBackStack(TAG).replace(R.id.content_frame, frag, TAG).commit();
+        //TODO
+        Log.e("wawawa", "position=" + position + ", id=" + id);
     }
 }
