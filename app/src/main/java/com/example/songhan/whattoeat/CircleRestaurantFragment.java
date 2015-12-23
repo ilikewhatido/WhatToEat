@@ -67,7 +67,7 @@ public class CircleRestaurantFragment extends Fragment implements AdapterView.On
                 Fragment frag = AddRestaurantCircleFragment.newInstance(getActivity());
                 frag.setArguments(getArguments());
                 FragmentManager manager = getActivity().getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.content_frame, frag).commit();
+                manager.beginTransaction().addToBackStack(ADD_CIRCLE_DIALOG_TAG).replace(R.id.content_frame, frag).commit();
                 return true;
             default:
                 return true;

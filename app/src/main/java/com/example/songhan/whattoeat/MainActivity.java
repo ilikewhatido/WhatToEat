@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String tag = null;
         FragmentManager manager = getSupportFragmentManager();
 
+        while(manager.popBackStackImmediate());
+
         int id = item.getItemId();
         if(id == R.id.nav_home) {
             frag = HomeFragment.newInstance(this);
@@ -110,7 +112,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             tag = CIRCLE_FRAGMENT_TAG;
         }
 
-        manager.beginTransaction().replace(R.id.content_frame, frag).commit();
+        if(tag == HOME_FRAGMENT_TAG) {
+            manager.beginTransaction().replace(R.id.content_frame, frag).commit();
+        } else {
+            manager.beginTransaction().addToBackStack(tag).replace(R.id.content_frame, frag).commit();
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawers();
 
