@@ -26,7 +26,7 @@ public class DatabaseAdapter {
             CIRCLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CIRCLE_NAME + " VARCHAR(255) NOT NULL " +
             ");";
-    public static final String DEFAULT_CIRCLE = "\"default_circle\"";
+    public static final String DEFAULT_CIRCLE = "\"default_group\"";
     public static final String CREATE_DEFAULT_CIRCLE = "INSERT INTO " + TABLE_CIRCLE + " (" + CIRCLE_NAME + ")" + " VALUES (" + DEFAULT_CIRCLE + ");";
 
     // TABLE: RESTAURANT
@@ -55,13 +55,6 @@ public class DatabaseAdapter {
 
     public DatabaseAdapter(Context context) {
         mSQLiteDatabase = new DbHelper(context, DB_NAME, null, DB_VERSION).getWritableDatabase();
-    }
-
-    public long addRestaurantToCircle(long restaurantId, long circleId) {
-        ContentValues cv = new ContentValues();
-        cv.put(RESTAURANT_CIRCLE_RESTAURANT_ID, restaurantId);
-        cv.put(RESTAURANT_CIRCLE_CIRCLE_ID, circleId);
-        return mSQLiteDatabase.insert(TABLE_RESTAURANT_CIRCLE, null, cv);
     }
 
     public long addRestaurant(String name, String number) {

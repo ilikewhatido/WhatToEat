@@ -2,7 +2,6 @@ package com.example.songhan.whattoeat;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -14,8 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.songhan.whattoeat.database.DatabaseAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -93,13 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Fragment frag = null;
         String tag = null;
-<<<<<<< HEAD
-=======
-        FragmentManager manager = getSupportFragmentManager();
-
-        while(manager.popBackStackImmediate());
-
->>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
         int id = item.getItemId();
 
         FragmentManager manager = getSupportFragmentManager();
@@ -115,27 +105,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(frag == null)
                 frag =RestaurantFragment.newInstance(this);
         } else if(id == R.id.nav_circles) {
-            tag = CircleFragment.TAG;
+            tag = GroupsFragment.TAG;
             frag = manager.findFragmentByTag(tag);
             if(frag == null)
-                frag =CircleFragment.newInstance(this);
+                frag = GroupsFragment.newInstance(this);
         }
-<<<<<<< HEAD
         manager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
-=======
-
-        if(tag == HOME_FRAGMENT_TAG) {
-            manager.beginTransaction().replace(R.id.content_frame, frag).commit();
-        } else {
-            manager.beginTransaction().addToBackStack(tag).replace(R.id.content_frame, frag).commit();
-        }
-
->>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawers();
-
         return true;
     }
-
-
 }

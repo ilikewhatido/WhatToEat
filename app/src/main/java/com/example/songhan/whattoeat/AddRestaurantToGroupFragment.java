@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.ActionMode;
@@ -14,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
@@ -22,13 +22,14 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 /**
  * Created by Song on 2015/12/16.
  */
-public class AddRestaurantCircleFragment extends Fragment {
+public class AddRestaurantToGroupFragment extends Fragment {
 
     private DatabaseAdapter db;
     public static final String TAG = "add_restaurant_to_group";
+    private SimpleCursorAdapter adapter;
 
     public static Fragment newInstance(Context context) {
-        return new AddRestaurantCircleFragment();
+        return new AddRestaurantToGroupFragment();
     }
 
     @Nullable
@@ -49,7 +50,7 @@ public class AddRestaurantCircleFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         long circleId = getArguments().getLong("circle_id", 1);
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(),
+        adapter = new SimpleCursorAdapter(getActivity(),
                 R.layout.row_restaurant,
                 db.getRestaurantsNotInCircle(circleId),
                 new String[] { DatabaseAdapter.RESTAURANT_NAME },
@@ -77,19 +78,13 @@ public class AddRestaurantCircleFragment extends Fragment {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.add_restaurant_to_circle_contexual:
-<<<<<<< HEAD
-                        ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_to_group_listview);
-                        long circleId = getArguments().getLong("circle_id", 1);
-                        for(long restaurantId : list.getCheckedItemIds()) {
-                            db.addRestaurantToCircle(restaurantId, circleId);
-=======
                         long circleId = getArguments().getLong("circle_id", 1);
                         ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_to_group_listview);
                         for(long id : list.getCheckedItemIds()) {
                             db.linkRestaurantToGroup(id, circleId);
->>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
                         }
                         mode.finish();
+                        getActivity().getSupportFragmentManager().popBackStackImmediate();
                         break;
                     default:
                 }

@@ -1,9 +1,9 @@
 package com.example.songhan.whattoeat;
 
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 /**
  * Created by Song on 2015/12/2.
  */
-public class AddCircleDialog extends DialogFragment implements View.OnClickListener {
+public class AddGroupDialog extends DialogFragment implements View.OnClickListener {
 
     private Button ok, cancel;
     private EditText name;
@@ -40,6 +40,7 @@ public class AddCircleDialog extends DialogFragment implements View.OnClickListe
         if(id == R.id.add_circle_ok) {
             DatabaseAdapter db = new DatabaseAdapter(getActivity());
             db.addCircle(name.getText().toString());
+            ((GroupsFragment) getTargetFragment()).refreshUI();
             dismiss();
         } else if (id == R.id.add_circle_cancel) {
             dismiss();
