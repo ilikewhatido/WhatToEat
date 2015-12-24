@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/add_restaurant_to_circle"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@android:drawable/ic_input_add"
         android:orderInCategory="1"
         android:title="Add"
         app:showAsAction="always" />

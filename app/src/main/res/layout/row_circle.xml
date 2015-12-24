@@ -4,6 +4,7 @@
     android:id="@+id/row_circle_name"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/list_selector"
     android:padding="10dip"
     android:textSize="16dip"
     android:textStyle="bold"></TextView>

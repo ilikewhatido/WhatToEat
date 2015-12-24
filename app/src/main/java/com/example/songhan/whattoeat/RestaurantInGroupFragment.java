@@ -43,10 +43,13 @@ public class RestaurantInGroupFragment extends Fragment implements AdapterView.O
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        long circleId = getArguments().getLong(GroupsFragment.SELECTED_GROUP_ID, 1);
+        long groupId = getArguments().getLong(GroupsFragment.SELECTED_GROUP_ID, 1);
+
+        Log.e("wawawa", "group selected= " +  groupId);
+
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(),
                 R.layout.row_restaurant,
-                db.getRestaurantsByCircle(circleId),
+                db.getRestaurantsByCircle(groupId),
                 new String[] { DatabaseAdapter.RESTAURANT_NAME },
                 new int[] { R.id.row_restaurant_name });
         ListView list = (ListView) getActivity().findViewById(R.id.circle_restaurant_listview);
@@ -61,14 +64,14 @@ public class RestaurantInGroupFragment extends Fragment implements AdapterView.O
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_restaurant_in_circle, menu);
+        inflater.inflate(R.menu.menu_add, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_circle_restaurant:
+            case R.id.add_item:
                 Fragment frag = AddRestaurantToGroupFragment.newInstance(getActivity());
                 frag.setArguments(getArguments());
                 FragmentManager manager = getActivity().getSupportFragmentManager();

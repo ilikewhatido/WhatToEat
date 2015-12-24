@@ -4,16 +4,9 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/add_circle"
-        android:icon="@android:drawable/ic_menu_add"
-        android:orderInCategory="1"
-        android:title="Add"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/remove_circle"
+        android:id="@+id/remove_item"
         android:icon="@android:drawable/ic_menu_delete"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         android:title="Remove"
         app:showAsAction="always" />
 

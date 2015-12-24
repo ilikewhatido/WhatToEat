@@ -6,13 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,20 +56,60 @@ public class GroupsFragment extends Fragment implements AdapterView.OnItemClickL
         list = (ListView) getActivity().findViewById(R.id.circle_listview);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
-        TextView textView = (TextView) getActivity().findViewById(R.id.fragment_groups_textview);
+        // set up contexual toolbar
+        list.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = getActivity().getMenuInflater();
+                inflater.inflate(R.menu.menu_remove, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.remove_item:
+                        long[] idsToDeleted = list.getCheckedItemIds();
+                        db.deleteRestaurantByGroups(idsToDeleted);
+                        mode.finish();
+                        adapter.changeCursor(db.getCircles());
+                        adapter.notifyDataSetChanged();
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+            }
+        });
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_circle, menu);
+        inflater.inflate(R.menu.menu_add, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_circle:
+            case R.id.add_item:
                 AddGroupDialog dialog = new AddGroupDialog();
                 dialog.setTargetFragment(this, 0);
                 dialog.show(getActivity().getSupportFragmentManager(), AddGroupDialog.TAG);

@@ -22,7 +22,7 @@ public class DatabaseAdapter {
     public static final String TABLE_CIRCLE = "circle";
     public static final String CIRCLE_ID = "_id";
     public static final String CIRCLE_NAME = "name";
-    public  static final String CREATE_TABLE_CIRCLE = "CREATE TABLE " + TABLE_CIRCLE + " (" +
+    public static final String CREATE_TABLE_CIRCLE = "CREATE TABLE " + TABLE_CIRCLE + " (" +
             CIRCLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CIRCLE_NAME + " VARCHAR(255) NOT NULL " +
             ");";
@@ -49,8 +49,8 @@ public class DatabaseAdapter {
             RESTAURANT_CIRCLE_RESTAURANT_ID  + " INTEGER, " +
             RESTAURANT_CIRCLE_CIRCLE_ID + " INTEGER, " +
             "PRIMARY KEY (" + RESTAURANT_CIRCLE_RESTAURANT_ID + ", " + RESTAURANT_CIRCLE_CIRCLE_ID + "), " +
-            "FOREIGN KEY (" + RESTAURANT_CIRCLE_RESTAURANT_ID + ") REFERENCES " + TABLE_RESTAURANT + " ("+ RESTAURANT_ID + "), " +
-            "FOREIGN KEY (" + RESTAURANT_CIRCLE_CIRCLE_ID + ") REFERENCES " + TABLE_CIRCLE + " ("+ CIRCLE_ID + ")" +
+            "FOREIGN KEY (" + RESTAURANT_CIRCLE_RESTAURANT_ID + ") REFERENCES " + TABLE_RESTAURANT + " ("+ RESTAURANT_ID + ") ON DELETE CASCADE, " +
+            "FOREIGN KEY (" + RESTAURANT_CIRCLE_CIRCLE_ID + ") REFERENCES " + TABLE_CIRCLE + " ("+ CIRCLE_ID + ") ON DELETE CASCADE" +
             ");";
 
     public DatabaseAdapter(Context context) {
@@ -63,6 +63,15 @@ public class DatabaseAdapter {
         cv.put(RESTAURANT_NAME, name);
         cv.put(RESTAURANT_NUMBER, number);
         return mSQLiteDatabase.insert(TABLE_RESTAURANT, null, cv);
+    }
+
+    public void deleteRestaurantByGroups(long[] ids) {
+        String[] idsToDelete = new String[ids.length];
+        for(int i = 0; i < ids.length; i++)
+            idsToDelete[i] = String.valueOf(ids[i]);
+        String whereClause = CIRCLE_ID + " IN (" + TextUtils.join(",", idsToDelete) + ")";
+        Log.d(getClass().getName(), "deleteRestaurantByGroup" + " WHERE " + whereClause);
+        mSQLiteDatabase.delete(TABLE_CIRCLE, whereClause, null);
     }
 
     public long linkRestaurantToGroup(long restaurantId, long circleId) {
