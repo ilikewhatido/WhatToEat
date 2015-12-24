@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
 
@@ -24,7 +26,11 @@ public class GroupsFragment extends Fragment implements AdapterView.OnItemClickL
 
     private DatabaseAdapter db;
     private SimpleCursorAdapter adapter;
+    private ListView list;
+
     public static final String TAG = "group";
+    public static final String SELECTED_GROUP_NAME = "selected_group_name";
+    public static final String SELECTED_GROUP_ID = "selected_group_id";
 
     public static Fragment newInstance(Context context) {
         return new GroupsFragment();
@@ -35,7 +41,7 @@ public class GroupsFragment extends Fragment implements AdapterView.OnItemClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         db = new DatabaseAdapter(getActivity());
-        return inflater.inflate(R.layout.fragment_circle, container, false);
+        return inflater.inflate(R.layout.fragment_groups, container, false);
     }
 
     @Override
@@ -46,9 +52,11 @@ public class GroupsFragment extends Fragment implements AdapterView.OnItemClickL
                 db.getCircles(),
                 new String[] { DatabaseAdapter.CIRCLE_NAME },
                 new int[] { R.id.row_circle_name });
-        ListView list = (ListView) getActivity().findViewById(R.id.circle_listview);
+        list = (ListView) getActivity().findViewById(R.id.circle_listview);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+
+        TextView textView = (TextView) getActivity().findViewById(R.id.fragment_groups_textview);
     }
 
     @Override
@@ -72,8 +80,12 @@ public class GroupsFragment extends Fragment implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        TextView textView = (TextView) view.findViewById(R.id.row_circle_name);
         Bundle bundle = new Bundle();
-        bundle.putLong("circle_id", id);
+        bundle.putLong(SELECTED_GROUP_ID, id);
+        bundle.putString(SELECTED_GROUP_NAME, textView.getText().toString());
+
         Fragment frag = RestaurantInGroupFragment.newInstance(getActivity());
         frag.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

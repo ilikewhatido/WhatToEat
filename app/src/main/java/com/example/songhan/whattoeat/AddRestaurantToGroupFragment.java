@@ -78,7 +78,7 @@ public class AddRestaurantToGroupFragment extends Fragment {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.add_restaurant_to_circle_contexual:
-                        long circleId = getArguments().getLong("circle_id", 1);
+                        long circleId = getArguments().getLong(GroupsFragment.SELECTED_GROUP_ID, 1);
                         ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_to_group_listview);
                         for(long id : list.getCheckedItemIds()) {
                             db.linkRestaurantToGroup(id, circleId);

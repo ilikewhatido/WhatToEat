@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
 
@@ -35,14 +36,14 @@ public class RestaurantInGroupFragment extends Fragment implements AdapterView.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         db = new DatabaseAdapter(getActivity());
-        return inflater.inflate(R.layout.fragment_circle_restaurant, container, false);
+        return inflater.inflate(R.layout.fragment_restaurants_in_group, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        long circleId = getArguments().getLong("circle_id", 1);
+        long circleId = getArguments().getLong(GroupsFragment.SELECTED_GROUP_ID, 1);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(),
                 R.layout.row_restaurant,
                 db.getRestaurantsByCircle(circleId),
@@ -51,6 +52,11 @@ public class RestaurantInGroupFragment extends Fragment implements AdapterView.O
         ListView list = (ListView) getActivity().findViewById(R.id.circle_restaurant_listview);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+
+        // Set group name
+        String groupName = getArguments().getString(GroupsFragment.SELECTED_GROUP_NAME, DatabaseAdapter.DEFAULT_CIRCLE);
+        TextView textView = (TextView) getActivity().findViewById(R.id.fragment_restaurants_in_group_textview);
+        textView.setText("Groups > " + groupName);
     }
 
     @Override
@@ -63,7 +69,6 @@ public class RestaurantInGroupFragment extends Fragment implements AdapterView.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_circle_restaurant:
-
                 Fragment frag = AddRestaurantToGroupFragment.newInstance(getActivity());
                 frag.setArguments(getArguments());
                 FragmentManager manager = getActivity().getSupportFragmentManager();
