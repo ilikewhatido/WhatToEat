@@ -25,6 +25,7 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 public class AddRestaurantCircleFragment extends Fragment {
 
     private DatabaseAdapter db;
+    public static final String TAG = "add_restaurant_to_group";
 
     public static Fragment newInstance(Context context) {
         return new AddRestaurantCircleFragment();
@@ -76,7 +77,12 @@ public class AddRestaurantCircleFragment extends Fragment {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.add_restaurant_to_circle_contexual:
-//TODO
+                        ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_to_group_listview);
+                        long circleId = getArguments().getLong("circle_id", 1);
+                        for(long restaurantId : list.getCheckedItemIds()) {
+                            db.addRestaurantToCircle(restaurantId, circleId);
+                        }
+                        mode.finish();
                         break;
                     default:
                 }

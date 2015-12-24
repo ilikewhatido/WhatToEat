@@ -19,6 +19,7 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 public class RestaurantFragment extends Fragment {
 
     private DatabaseAdapter db;
+    public static final String TAG = "restaurant";
 
     public static Fragment newInstance(Context context) {
         return new RestaurantFragment();

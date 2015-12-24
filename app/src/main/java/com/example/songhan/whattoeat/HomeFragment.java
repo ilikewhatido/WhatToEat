@@ -15,6 +15,7 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
  */
 public class HomeFragment extends Fragment {
 
+    public static final String TAG = "home";
 
     public static Fragment newInstance(Context context) {
         return new HomeFragment();

@@ -24,7 +24,7 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 public class CircleRestaurantFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private DatabaseAdapter db;
-    private static final String ADD_CIRCLE_DIALOG_TAG = "add_circle";
+    public static final String TAG = "restaurant_group";
 
     public static Fragment newInstance(Context context) {
         return new CircleRestaurantFragment();
@@ -67,7 +67,7 @@ public class CircleRestaurantFragment extends Fragment implements AdapterView.On
                 Fragment frag = AddRestaurantCircleFragment.newInstance(getActivity());
                 frag.setArguments(getArguments());
                 FragmentManager manager = getActivity().getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.content_frame, frag).commit();
+                manager.beginTransaction().replace(R.id.content_frame, frag, AddRestaurantCircleFragment.TAG).addToBackStack(TAG).commit();
                 return true;
             default:
                 return true;

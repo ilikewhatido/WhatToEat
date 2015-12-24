@@ -17,6 +17,7 @@ public class AddRestaurantDialog extends DialogFragment implements View.OnClickL
 
     private Button ok, cancel;
     private EditText name, number;
+    public static final String TAG = "add_restaurant_dialog";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

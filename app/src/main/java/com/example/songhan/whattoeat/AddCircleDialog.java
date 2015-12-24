@@ -1,7 +1,10 @@
 package com.example.songhan.whattoeat;
 
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +19,15 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 public class AddCircleDialog extends DialogFragment implements View.OnClickListener {
 
     private Button ok, cancel;
-    private EditText name, number;
+    private EditText name;
+    public static final String TAG = "add_group_dialog";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_circle, null);
         ok = (Button) view.findViewById(R.id.add_circle_ok);
-        cancel = (Button) view.findViewById(R.id.add_circle_cancel);
         ok.setOnClickListener(this);
+        cancel = (Button) view.findViewById(R.id.add_circle_cancel);
         cancel.setOnClickListener(this);
         name = (EditText) view.findViewById(R.id.add_circle_name);
         setCancelable(true);

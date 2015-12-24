@@ -19,11 +19,6 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String HOME_FRAGMENT_TAG = "home";
-    private static final String RESTAURANT_FRAGMENT_TAG = "restaurant";
-    private static final String CIRCLE_FRAGMENT_TAG = "circle";
-    private static final String ADD_RESTAURANT_DIALOG_TAG = "add_restaurant";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 AddRestaurantDialog dialog = new AddRestaurantDialog();
-                dialog.show(getFragmentManager(), ADD_RESTAURANT_DIALOG_TAG);
+                dialog.show(getFragmentManager(), AddRestaurantDialog.TAG);
             }
         });
 
@@ -53,9 +48,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set Home page
-        Fragment home = HomeFragment.newInstance(this);
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content_frame, home).commit();
+        if(savedInstanceState == null) {
+            Fragment home = HomeFragment.newInstance(this);
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_frame, home, HomeFragment.TAG).commit();
+        }
     }
 
     @Override
@@ -96,21 +93,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Fragment frag = null;
         String tag = null;
-        FragmentManager manager = getSupportFragmentManager();
-
         int id = item.getItemId();
-        if(id == R.id.nav_home) {
-            frag = HomeFragment.newInstance(this);
-            tag = HOME_FRAGMENT_TAG;
-        } else if(id == R.id.nav_restaurants) {
-            frag =RestaurantFragment.newInstance(this);
-            tag = RESTAURANT_FRAGMENT_TAG;
-        } else if(id == R.id.nav_circles) {
-            frag =CircleFragment.newInstance(this);
-            tag = CIRCLE_FRAGMENT_TAG;
-        }
 
-        manager.beginTransaction().replace(R.id.content_frame, frag).commit();
+        FragmentManager manager = getSupportFragmentManager();
+        while(manager.popBackStackImmediate());
+        if(id == R.id.nav_home) {
+            tag = HomeFragment.TAG;
+            frag = manager.findFragmentByTag(tag);
+            if(frag == null)
+                frag = HomeFragment.newInstance(this);
+        } else if(id == R.id.nav_restaurants) {
+            tag = RestaurantFragment.TAG;
+            frag = manager.findFragmentByTag(tag);
+            if(frag == null)
+                frag =RestaurantFragment.newInstance(this);
+        } else if(id == R.id.nav_circles) {
+            tag = CircleFragment.TAG;
+            frag = manager.findFragmentByTag(tag);
+            if(frag == null)
+                frag =CircleFragment.newInstance(this);
+        }
+        manager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawers();
 

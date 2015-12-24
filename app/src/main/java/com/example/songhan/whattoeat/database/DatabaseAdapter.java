@@ -57,6 +57,13 @@ public class DatabaseAdapter {
         mSQLiteDatabase = new DbHelper(context, DB_NAME, null, DB_VERSION).getWritableDatabase();
     }
 
+    public long addRestaurantToCircle(long restaurantId, long circleId) {
+        ContentValues cv = new ContentValues();
+        cv.put(RESTAURANT_CIRCLE_RESTAURANT_ID, restaurantId);
+        cv.put(RESTAURANT_CIRCLE_CIRCLE_ID, circleId);
+        return mSQLiteDatabase.insert(TABLE_RESTAURANT_CIRCLE, null, cv);
+    }
+
     public long addRestaurant(String name, String number) {
         Log.d(getClass().getName(), "Adding restaurant(name=" + name + ", number= " + number + ")");
         ContentValues cv = new ContentValues();

@@ -1,6 +1,7 @@
 package com.example.songhan.whattoeat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,11 +21,11 @@ import com.example.songhan.whattoeat.database.DatabaseAdapter;
 /**
  * Created by Song on 2015/12/16.
  */
-public class CircleFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class CircleFragment extends Fragment implements AdapterView.OnItemClickListener  {
 
-    private static final String TAG = "circle_frag";
     private DatabaseAdapter db;
-    private static final String ADD_CIRCLE_DIALOG_TAG = "add_circle";
+    private SimpleCursorAdapter adapter;
+    public static final String TAG = "group";
 
     public static Fragment newInstance(Context context) {
         return new CircleFragment();
@@ -41,7 +42,7 @@ public class CircleFragment extends Fragment implements AdapterView.OnItemClickL
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(),
+        adapter = new SimpleCursorAdapter(getActivity(),
                 R.layout.row_circle,
                 db.getCircles(),
                 new String[] { DatabaseAdapter.CIRCLE_NAME },
@@ -62,7 +63,7 @@ public class CircleFragment extends Fragment implements AdapterView.OnItemClickL
         switch (item.getItemId()) {
             case R.id.add_circle:
                 AddCircleDialog dialog = new AddCircleDialog();
-                dialog.show(getActivity().getFragmentManager(), ADD_CIRCLE_DIALOG_TAG);
+                dialog.show(getActivity().getFragmentManager(), AddCircleDialog.TAG);
                 return true;
             default:
                 return true;
@@ -76,6 +77,6 @@ public class CircleFragment extends Fragment implements AdapterView.OnItemClickL
         Fragment frag = CircleRestaurantFragment.newInstance(getActivity());
         frag.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, frag, TAG).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, frag, CircleRestaurantFragment.TAG).addToBackStack(TAG).commit();
     }
 }
