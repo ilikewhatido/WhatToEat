@@ -110,7 +110,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(frag == null)
                 frag = GroupsFragment.newInstance(this);
         }
-        manager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
+
+        if(tag == HomeFragment.TAG) {
+            manager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
+        } else {
+            manager.beginTransaction().addToBackStack(tag).replace(R.id.content_frame, frag, tag).commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawers();
         return true;
