@@ -55,7 +55,7 @@ public class CircleRestaurantFragment extends Fragment implements AdapterView.On
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_circle_restaurant, menu);
+        inflater.inflate(R.menu.menu_restaurant_in_circle, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -67,7 +67,11 @@ public class CircleRestaurantFragment extends Fragment implements AdapterView.On
                 Fragment frag = AddRestaurantCircleFragment.newInstance(getActivity());
                 frag.setArguments(getArguments());
                 FragmentManager manager = getActivity().getSupportFragmentManager();
+<<<<<<< HEAD
                 manager.beginTransaction().replace(R.id.content_frame, frag, AddRestaurantCircleFragment.TAG).addToBackStack(TAG).commit();
+=======
+                manager.beginTransaction().addToBackStack(ADD_CIRCLE_DIALOG_TAG).replace(R.id.content_frame, frag).commit();
+>>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
                 return true;
             default:
                 return true;

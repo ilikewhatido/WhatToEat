@@ -93,6 +93,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Fragment frag = null;
         String tag = null;
+<<<<<<< HEAD
+=======
+        FragmentManager manager = getSupportFragmentManager();
+
+        while(manager.popBackStackImmediate());
+
+>>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
         int id = item.getItemId();
 
         FragmentManager manager = getSupportFragmentManager();
@@ -113,7 +120,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(frag == null)
                 frag =CircleFragment.newInstance(this);
         }
+<<<<<<< HEAD
         manager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
+=======
+
+        if(tag == HOME_FRAGMENT_TAG) {
+            manager.beginTransaction().replace(R.id.content_frame, frag).commit();
+        } else {
+            manager.beginTransaction().addToBackStack(tag).replace(R.id.content_frame, frag).commit();
+        }
+
+>>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawers();
 

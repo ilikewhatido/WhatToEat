@@ -24,7 +24,7 @@ public class AddCircleDialog extends DialogFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_circle, null);
+        View view = inflater.inflate(R.layout.fragment_add_circle_dialog, null);
         ok = (Button) view.findViewById(R.id.add_circle_ok);
         ok.setOnClickListener(this);
         cancel = (Button) view.findViewById(R.id.add_circle_cancel);

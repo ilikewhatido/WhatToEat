@@ -77,10 +77,17 @@ public class AddRestaurantCircleFragment extends Fragment {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.add_restaurant_to_circle_contexual:
+<<<<<<< HEAD
                         ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_to_group_listview);
                         long circleId = getArguments().getLong("circle_id", 1);
                         for(long restaurantId : list.getCheckedItemIds()) {
                             db.addRestaurantToCircle(restaurantId, circleId);
+=======
+                        long circleId = getArguments().getLong("circle_id", 1);
+                        ListView list = (ListView) getActivity().findViewById(R.id.add_restaurant_to_group_listview);
+                        for(long id : list.getCheckedItemIds()) {
+                            db.linkRestaurantToGroup(id, circleId);
+>>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
                         }
                         mode.finish();
                         break;

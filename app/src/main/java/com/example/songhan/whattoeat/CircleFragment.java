@@ -77,6 +77,10 @@ public class CircleFragment extends Fragment implements AdapterView.OnItemClickL
         Fragment frag = CircleRestaurantFragment.newInstance(getActivity());
         frag.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+<<<<<<< HEAD
         fragmentManager.beginTransaction().replace(R.id.content_frame, frag, CircleRestaurantFragment.TAG).addToBackStack(TAG).commit();
+=======
+        fragmentManager.beginTransaction().addToBackStack(TAG).replace(R.id.content_frame, frag, TAG).commit();
+>>>>>>> e7bae10815511d51c586275ae63fe4381f954e0b
     }
 }
