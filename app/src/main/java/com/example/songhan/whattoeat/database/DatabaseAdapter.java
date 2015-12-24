@@ -65,7 +65,7 @@ public class DatabaseAdapter {
         return mSQLiteDatabase.insert(TABLE_RESTAURANT, null, cv);
     }
 
-    public void deleteRestaurantByGroups(long[] ids) {
+    public void deleteGroups(long[] ids) {
         String[] idsToDelete = new String[ids.length];
         for(int i = 0; i < ids.length; i++)
             idsToDelete[i] = String.valueOf(ids[i]);
@@ -79,6 +79,15 @@ public class DatabaseAdapter {
         cv.put(RESTAURANT_CIRCLE_RESTAURANT_ID, restaurantId);
         cv.put(RESTAURANT_CIRCLE_CIRCLE_ID, circleId);
         return mSQLiteDatabase.insert(TABLE_RESTAURANT_CIRCLE, null, cv);
+    }
+
+    public void unlinkRestaurantFromGroup(long[] restaurantIds, long circleId) {
+        String[] idsToDelete = new String[restaurantIds.length];
+        for(int i = 0; i < restaurantIds.length; i++)
+            idsToDelete[i] = String.valueOf(restaurantIds[i]);
+        String whereClause = RESTAURANT_CIRCLE_CIRCLE_ID + " = " + circleId + " AND " + RESTAURANT_CIRCLE_RESTAURANT_ID + " IN (" + TextUtils.join(",", idsToDelete) + ")";
+        Log.d(getClass().getName(), "unlinkRestaurantFromGroup" + " WHERE " + whereClause);
+        mSQLiteDatabase.delete(TABLE_RESTAURANT_CIRCLE, whereClause, null);
     }
 
     public long addCircle(String name) {

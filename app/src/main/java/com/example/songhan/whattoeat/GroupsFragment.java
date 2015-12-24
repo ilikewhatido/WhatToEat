@@ -78,7 +78,7 @@ public class GroupsFragment extends Fragment implements AdapterView.OnItemClickL
                 switch (item.getItemId()) {
                     case R.id.remove_item:
                         long[] idsToDeleted = list.getCheckedItemIds();
-                        db.deleteRestaurantByGroups(idsToDeleted);
+                        db.deleteGroups(idsToDeleted);
                         mode.finish();
                         adapter.changeCursor(db.getCircles());
                         adapter.notifyDataSetChanged();
