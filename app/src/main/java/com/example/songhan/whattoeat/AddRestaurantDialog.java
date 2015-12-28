@@ -1,7 +1,7 @@
 package com.example.songhan.whattoeat;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +38,7 @@ public class AddRestaurantDialog extends DialogFragment implements View.OnClickL
         if(id == R.id.add_restaurant_ok) {
             DatabaseAdapter db = new DatabaseAdapter(getActivity());
             db.addRestaurant(name.getText().toString(), number.getText().toString());
+            ((RestaurantFragment) getTargetFragment()).refreshUI();
             dismiss();
         } else if (id == R.id.add_restaurant_cancel) {
             dismiss();

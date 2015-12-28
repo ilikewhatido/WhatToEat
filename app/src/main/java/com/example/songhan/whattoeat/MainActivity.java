@@ -25,15 +25,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         // Floating button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddRestaurantDialog dialog = new AddRestaurantDialog();
-                dialog.show(getFragmentManager(), AddRestaurantDialog.TAG);
+                dialog.show(getSupportFragmentManager(), AddRestaurantDialog.TAG);
             }
         });
+        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set Home page
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             Fragment home = HomeFragment.newInstance(this);
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_frame, home, HomeFragment.TAG).commit();
@@ -93,27 +95,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         FragmentManager manager = getSupportFragmentManager();
-        while(manager.popBackStackImmediate());
-        if(id == R.id.nav_home) {
+        while (manager.popBackStackImmediate()) ;
+        if (id == R.id.nav_home) {
             tag = HomeFragment.TAG;
             frag = manager.findFragmentByTag(tag);
-            if(frag == null)
+            if (frag == null)
                 frag = HomeFragment.newInstance(this);
-        } else if(id == R.id.nav_restaurants) {
+        } else if (id == R.id.nav_restaurants) {
             tag = RestaurantFragment.TAG;
             frag = manager.findFragmentByTag(tag);
-            if(frag == null)
-                frag =RestaurantFragment.newInstance(this);
-        } else if(id == R.id.nav_circles) {
+            if (frag == null)
+                frag = RestaurantFragment.newInstance(this);
+        } else if (id == R.id.nav_circles) {
             tag = GroupsFragment.TAG;
             frag = manager.findFragmentByTag(tag);
-            if(frag == null)
+            if (frag == null)
                 frag = GroupsFragment.newInstance(this);
         } else {
             return true;
         }
 
-        if(tag == HomeFragment.TAG) {
+        if (tag == HomeFragment.TAG) {
             manager.beginTransaction().replace(R.id.content_frame, frag, tag).commit();
         } else {
             manager.beginTransaction().addToBackStack(tag).replace(R.id.content_frame, frag, tag).commit();

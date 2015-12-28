@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         final Random rand = new Random();
         int i = (rand.nextInt(shakerAdapter.getItemsCount() * 10) + 1);
         Log.e("wawawa", ""+i);
-        shaker.scroll(i , 3000);
+        shaker.scroll(-i - 25 , 3000);
     }
 
     private class RestaurantShakerAdapter extends AbstractWheelTextAdapter {
