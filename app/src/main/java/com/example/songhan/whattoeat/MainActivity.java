@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             frag = manager.findFragmentByTag(tag);
             if(frag == null)
                 frag = GroupsFragment.newInstance(this);
+        } else {
+            return true;
         }
 
         if(tag == HomeFragment.TAG) {

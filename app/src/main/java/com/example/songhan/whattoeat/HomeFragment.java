@@ -1,24 +1,40 @@
 package com.example.songhan.whattoeat;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
 import com.example.songhan.whattoeat.widget.WheelView;
 import com.example.songhan.whattoeat.widget.adapters.AbstractWheelTextAdapter;
+import com.example.songhan.whattoeat.widget.adapters.ArrayWheelAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Song on 2015/12/16.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "home";
-    private static final int VISIBLE_ITEMS = 5;
+    private static final int VISIBLE_ITEMS = 3;
+
+    private DatabaseAdapter db;
+    private SimpleCursorAdapter spinnerAdapter;
+    private RestaurantShakerAdapter shakerAdapter;
+    private WheelView shaker;
+
     public static Fragment newInstance(Context context) {
         return new HomeFragment();
     }
@@ -26,6 +42,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        db = new DatabaseAdapter(getActivity());
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -33,33 +50,63 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final WheelView shaker = (WheelView) getActivity().findViewById(R.id.shaker);
+        // Set up wheel picker
+        shakerAdapter = new RestaurantShakerAdapter(getActivity(), db.getRestaurants());
+        shaker = (WheelView) getActivity().findViewById(R.id.shaker);
         shaker.setVisibleItems(VISIBLE_ITEMS);
-        shaker.setViewAdapter(new RestaurantShakerAdapter(getActivity()));
+        shaker.setViewAdapter(shakerAdapter);
+        shaker.setCyclic(true);
+
+        // Set up spinner
+        final Spinner spinner = (Spinner) getActivity().findViewById(R.id.shaker_selector);
+        spinnerAdapter = new SimpleCursorAdapter(getActivity(),
+                android.R.layout.simple_spinner_item,
+                db.getCircles(),
+                new String[] { DatabaseAdapter.CIRCLE_NAME },
+                new int[]{android.R.id.text1},
+                0);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        shakerAdapter.close();
+        shakerAdapter = new RestaurantShakerAdapter(getActivity(), db.getRestaurantsByCircle(id));
+        shaker.setViewAdapter(shakerAdapter);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        //DO NOTHING
     }
 
     private class RestaurantShakerAdapter extends AbstractWheelTextAdapter {
 
-        private String restaurants[] = new String[] {"USA", "Canada", "Ukraine", "France"};
+        private Cursor cursor;
 
-        protected RestaurantShakerAdapter(Context context) {
-            super(context, R.layout.shaker_row_restaurant, NO_RESOURCE);
-            setItemTextResource(R.id.shaker_row_restaurant_name);
-        }
-
-        @Override
-        public View getItem(int index, View cachedView, ViewGroup parent) {
-            return super.getItem(index, cachedView, parent);
+        public RestaurantShakerAdapter(Context context, Cursor cursor) {
+            super(context, R.layout.row_shaker_restaurant, R.id.shaker_row_restaurant_name);
+            this.cursor = cursor;
         }
 
         @Override
         public int getItemsCount() {
-            return restaurants.length;
+            return cursor.getCount();
         }
 
         @Override
         protected CharSequence getItemText(int index) {
-            return restaurants[index];
+            if(index >= 0 && index < cursor.getCount()) {
+                cursor.moveToPosition(index);
+                return cursor.getString(cursor.getColumnIndex(DatabaseAdapter.RESTAURANT_NAME));
+            }
+            return null;
+        }
+
+        public void close() {
+            this.cursor.close();
         }
     }
 }

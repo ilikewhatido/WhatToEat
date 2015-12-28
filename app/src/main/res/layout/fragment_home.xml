@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Spinner
+        android:id="@+id/shaker_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.example.songhan.whattoeat.widget.WheelView
         android:id="@+id/shaker"
         android:layout_width="match_parent"
@@ -38,6 +43,5 @@
             android:text="Groups" />
 
     </LinearLayout>
-
 
 </LinearLayout>
