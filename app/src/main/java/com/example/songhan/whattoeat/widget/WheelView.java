@@ -71,8 +71,8 @@ public class WheelView extends View {
 	private Drawable centerDrawable;
 
 	// Wheel drawables
-	private int wheelBackground = R.drawable.wheel_bg_holo;
-	private int wheelForeground = R.drawable.wheel_val_holo;
+	private int wheelBackground = R.drawable.wheel_bg;
+	private int wheelForeground = R.drawable.wheel_val;
 
 	// Shadows drawables
 	private GradientDrawable topShadow;
