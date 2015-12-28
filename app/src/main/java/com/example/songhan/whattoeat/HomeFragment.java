@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.songhan.whattoeat.database.DatabaseAdapter;
@@ -21,11 +22,12 @@ import com.example.songhan.whattoeat.widget.adapters.ArrayWheelAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Song on 2015/12/16.
  */
-public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     public static final String TAG = "home";
     private static final int VISIBLE_ITEMS = 3;
@@ -68,6 +70,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
+
+        Button mix = (Button) getActivity().findViewById(R.id.button_shake);
+        mix.setOnClickListener(this);
     }
 
     @Override
@@ -80,6 +85,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         //DO NOTHING
+    }
+
+    @Override
+    public void onClick(View v) {
+        final Random rand = new Random();
+        int i = (rand.nextInt(shakerAdapter.getItemsCount() * 10) + 1);
+        Log.e("wawawa", ""+i);
+        shaker.scroll(i , 3000);
     }
 
     private class RestaurantShakerAdapter extends AbstractWheelTextAdapter {

@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/ItemsRange.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/OnWheelChangedListener.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/OnWheelClickedListener.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/OnWheelScrollListener.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/WheelAdapter.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/WheelRecycle.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/WheelScroller.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/WheelView.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/adapters/AbstractWheelAdapter.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/adapters/AbstractWheelTextAdapter.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/adapters/AdapterWheel.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/adapters/ArrayWheelAdapter.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/adapters/NumericWheelAdapter.java" charset="x-windows-950" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/songhan/whattoeat/widget/adapters/WheelViewAdapter.java" charset="x-windows-950" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
